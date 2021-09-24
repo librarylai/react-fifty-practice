@@ -1,9 +1,11 @@
 import React from 'react';
-import ExpandingCards from './Containers/ExpandingCards/ExpandingCards'
+import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
+import StepsPage from './containers/steps/StepsPage'
+
 function App() {
   return (
     <div>
-      <ExpandingCards/>
+      <StepsPage/>
     </div>
   );
 }

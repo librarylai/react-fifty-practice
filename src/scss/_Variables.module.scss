@@ -1,0 +1,7 @@
+// Steps
+$step-line-border-fill: #3498bd;
+$step-line-border-empty: #e0e0e0;
+:export {
+  stepLineBorderFill: $step-line-border-fill;
+  stepLineBorderEmpty: $step-line-border-empty;
+}

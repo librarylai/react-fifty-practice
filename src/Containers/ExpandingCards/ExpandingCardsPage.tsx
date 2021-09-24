@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState } from 'react'
 // import Panel from 'Containers/ExpandingCards/Component/Panel'
-import Panel from '@/Containers/ExpandingCards/Component/Panel'
+import Panel from '@/containers/expandingCards/component/Panel'
 import styled from 'styled-components'
 
-const ExpandingCardsContainer = styled.div`
+const ExpandingCardsPageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,9 +41,9 @@ const ExpandingCards: FunctionComponent<{}> = () => {
     setOpenIndex(index)
   }
   return (
-    <ExpandingCardsContainer>
+    <ExpandingCardsPageContainer>
       <Panel openIndex={openIndex} data={PANEL_LIST} handlePanelClick={handlePanelTiggle} />
-    </ExpandingCardsContainer>
+    </ExpandingCardsPageContainer>
   )
 }
 

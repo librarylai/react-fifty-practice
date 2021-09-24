@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 // -- styled component props types ----------------------------------------------------------------- //
-export interface PanelProps {
+export interface StyledPanelProps {
   imgUrl?: String
   isOpen: boolean
 }
@@ -18,7 +18,7 @@ const PanelContainer = styled.div`
   display: flex;
   width: 90vw;
 `
-const StyledPanel = styled.div<PanelProps>`
+const StyledPanel = styled.div<StyledPanelProps>`
   flex: ${({ isOpen }) => (isOpen ? 10 : 0.5)};
   height: 80vh;
   border-radius: 50px;
@@ -34,7 +34,7 @@ const panelActive = css`
   transition: 0.3s ease-in-out;
   transition-delay: 0.5s;
 `
-const PanelFont = styled.p<PanelProps>`
+const PanelFont = styled.p<StyledPanelProps>`
   color: #fff;
   text-shadow: 0px 0px 10px #999;
   position: absolute;
