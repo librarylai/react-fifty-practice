@@ -1,7 +1,9 @@
 import React from 'react';
-import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
-import StepsPage from './containers/steps/StepsPage'
 import RotatingNavigationPage from './containers/rotatingNavigation/RotatingNavigationPage'
+
+// import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
+// import StepsPage from './containers/steps/StepsPage'
+
 
 function App() {
   return (
