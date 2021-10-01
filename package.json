@@ -1,48 +1,72 @@
 {
-  "name": "fifty-project",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@craco/craco": "^6.3.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/styled-components": "^5.1.14",
-    "craco-alias": "^3.0.1",
-    "node-sass": "^6.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "styled-components": "^5.3.1",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+	"name": "fifty-project",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@craco/craco": "^6.3.0",
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.1.0",
+		"@testing-library/user-event": "^12.1.10",
+		"@types/jest": "^26.0.15",
+		"@types/node": "^12.0.0",
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
+		"@types/styled-components": "^5.1.14",
+		"craco-alias": "^3.0.1",
+		"express": "^4.17.1",
+		"node-sass": "^6.0.1",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-scripts": "4.0.3",
+		"styled-components": "^5.3.1",
+		"typescript": "^4.1.2",
+		"web-vitals": "^1.0.1"
+	},
+	"scripts": {
+		"dev:build-server": "webpack --config webpack.server.js --mode=development -w",
+		"dev:start": "nodemon ./server-build/index.js",
+		"dev": "npm-run-all --parallel build dev:*",
+		"server-build": "webpack --config webpack.server.js",
+		"server-start": "nodemon ./dist/main.js",
+		"server": "nodemon --exec babel-node ./server/index.ts ",
+		"start": "craco start",
+		"build": "craco build",
+		"test": "craco test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.15.7",
+		"@babel/core": "7.10.4",
+		"@babel/node": "^7.15.4",
+		"@babel/preset-env": "7.10.4",
+		"@babel/preset-react": "7.10.4",
+		"@babel/preset-typescript": "^7.15.0",
+		"@types/express": "^4.17.13",
+		"babel-loader": "8.1.0",
+		"nodemon": "^2.0.13",
+		"npm-run-all": "^4.1.5",
+		"ts-loader": "8.2.0",
+		"ts-node": "^10.2.1",
+		"webpack": "4.44.2",
+		"webpack-cli": "3.3.12",
+		"webpack-node-externals": "1.7.2"
+	}
 }

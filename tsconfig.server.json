@@ -1,0 +1,24 @@
+{
+	"include": ["server"], // compile TS files in server directory
+  "extends": "./tsconfig.paths.json",
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true, // allow import of JS modules
+    "skipLibCheck": true, // only check types we refer to from our code
+    "esModuleInterop": true,  // allow imports of modules in ES format
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,// prevents cross-OS problems
+    "noFallthroughCasesInSwitch": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true, // enable import of JSON files
+    "isolatedModules": true, 
+    "jsx": "react-jsx"// compile JSX to React.createElement statements for SSR
+  },
+}
