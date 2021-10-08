@@ -1,6 +1,7 @@
 {
 	"name": "fifty-project",
 	"version": "0.1.0",
+	"homepage": ".",
 	"private": true,
 	"dependencies": {
 		"@craco/craco": "^6.3.0",
@@ -23,12 +24,11 @@
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {
-		"dev:build-server": "webpack --config webpack.server.js --mode=development -w",
-		"dev:start": "nodemon ./server-build/index.js",
-		"dev": "npm-run-all --parallel build dev:*",
-		"server-build": "webpack --config webpack.server.js",
-		"server-start": "nodemon ./dist/main.js",
-		"server": "nodemon --exec babel-node ./server/index.ts ",
+		"dev:build-server": "webpack --config webpack.server.js -w",
+		"dev:build-client": "craco build",
+		"dev:server": "nodemon ./dist/main.js",
+		"dev": "npm-run-all --parallel dev:server dev:build-*",
+		"build-server": "webpack --config webpack.server.js",
 		"start": "craco start",
 		"build": "craco build",
 		"test": "craco test",
