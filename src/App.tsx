@@ -1,6 +1,7 @@
 import React from 'react';
-import RotatingNavigationPage from './containers/rotatingNavigation/RotatingNavigationPage'
+// import RotatingNavigationPage from './containers/rotatingNavigation/RotatingNavigationPage'
 
+import HiddenSearchWidgetPage from './containers/hiddenSearchWidget/HiddenSearchWidgetPage'
 // import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
 // import StepsPage from './containers/steps/StepsPage'
 
@@ -8,7 +9,7 @@ import RotatingNavigationPage from './containers/rotatingNavigation/RotatingNavi
 function App() {
   return (
     <div>
-      <RotatingNavigationPage/>
+      <HiddenSearchWidgetPage/>
     </div>
   );
 }
