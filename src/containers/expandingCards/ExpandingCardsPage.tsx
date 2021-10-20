@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react'
+// import Panel from 'Containers/ExpandingCards/Component/Panel'
 import Panel from '@/containers/expandingCards/component/Panel'
 import styled from 'styled-components'
 
