@@ -1,8 +1,12 @@
+import BlurryLoadingPage from './containers/blurryLoading/BlurryLoadingPage'
 import React from 'react';
+import ScrollAnimationPage from './containers/scrollAnimation/ScrollAnimationPage'
+
 // import RotatingNavigationPage from './containers/rotatingNavigation/RotatingNavigationPage'
 
 // import HiddenSearchWidgetPage from './containers/hiddenSearchWidget/HiddenSearchWidgetPage'
-import BlurryLoadingPage from './containers/blurryLoading/BlurryLoadingPage'
+
+
 // import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
 // import StepsPage from './containers/steps/StepsPage'
 
@@ -10,7 +14,7 @@ import BlurryLoadingPage from './containers/blurryLoading/BlurryLoadingPage'
 function App() {
   return (
     <div>
-      <BlurryLoadingPage/>
+      <ScrollAnimationPage/>
     </div>
   );
 }

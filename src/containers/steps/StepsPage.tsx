@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react'
 
-import PropTypes from 'prop-types'
-import { Steps } from '@/Containers/steps/component/Steps'
+import { Steps } from '@/containers/steps/component/Steps'
 import cssVariables from '@/scss/_Variables.module.scss'
 import styled from 'styled-components'
 
