@@ -1,4 +1,6 @@
-import BlurryLoadingPage from './containers/blurryLoading/BlurryLoadingPage'
+// import BlurryLoadingPage from './containers/blurryLoading/BlurryLoadingPage'
+
+import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
 import React from 'react';
 import ScrollAnimationPage from './containers/scrollAnimation/ScrollAnimationPage'
 
@@ -7,14 +9,14 @@ import ScrollAnimationPage from './containers/scrollAnimation/ScrollAnimationPag
 // import HiddenSearchWidgetPage from './containers/hiddenSearchWidget/HiddenSearchWidgetPage'
 
 
-// import ExpandingCardsPage from './containers/expandingCards/ExpandingCardsPage'
+
 // import StepsPage from './containers/steps/StepsPage'
 
 
 function App() {
   return (
     <div>
-      <ScrollAnimationPage/>
+      <ExpandingCardsPage/>
     </div>
   );
 }

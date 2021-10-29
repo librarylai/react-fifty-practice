@@ -3,10 +3,6 @@ import React, { FunctionComponent, useState } from 'react'
 import Panel from '@/containers/expandingCards/component/Panel'
 import styled from 'styled-components'
 
-// import Panel from 'Containers/ExpandingCards/Component/Panel'
-
-
-
 const ExpandingCardsPageContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -41,12 +37,12 @@ const PANEL_LIST: {
 ]
 const ExpandingCards: FunctionComponent<{}> = () => {
   const [openIndex, setOpenIndex] = useState<number>(0)
-  function handlePanelTiggle(index: number): void {
+  function handlePanelToggle(index: number): void {
     setOpenIndex(index)
   }
   return (
     <ExpandingCardsPageContainer>
-      <Panel openIndex={openIndex} data={PANEL_LIST} handlePanelClick={handlePanelTiggle} />
+      <Panel openIndex={openIndex} data={PANEL_LIST} handlePanelClick={handlePanelToggle} />
     </ExpandingCardsPageContainer>
   )
 }

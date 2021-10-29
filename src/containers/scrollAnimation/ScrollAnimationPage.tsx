@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import styled from 'styled-components'
+import useIsSsr from '@/hook/useIsSsr'
 
 const ScrollAnimationPageContainer = styled.div`
 	display: flex;
@@ -32,7 +33,8 @@ const ScrollableBox = styled.div<{ isShow: boolean | undefined }>`
 interface Props {}
 
 const ScrollAnimationPage = (props: Props) => {
-	const initVisibleHeight = (window.innerHeight / 5) * 4
+	const [isSsr] = useIsSsr()
+	const initVisibleHeight = isSsr ? 900 : (window.innerHeight / 5) * 4
 	const [boxesTop, setBoxesTop] = useState<Array<number>>([])
 	const boxRefs = useRef<Array<HTMLDivElement>>([])
 	const count = 10
@@ -46,11 +48,11 @@ const ScrollAnimationPage = (props: Props) => {
 			setBoxesTop(newBoxesTop)
 		}
 		handleScrollHight()
-		window.addEventListener('scroll', handleScrollHight)
+		!isSsr && window.addEventListener('scroll', handleScrollHight)
 		return () => {
-			window.removeEventListener('scroll', handleScrollHight)
+			!isSsr && window.removeEventListener('scroll', handleScrollHight)
 		}
-	}, [])
+	}, [isSsr])
 
 	function checkShowBox(index: number) {
 		if (boxesTop[index] > 0 && boxesTop[index] < initVisibleHeight) return true

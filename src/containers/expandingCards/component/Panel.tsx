@@ -1,5 +1,7 @@
-import React from 'react'
 import styled, { css } from 'styled-components'
+
+import React from 'react'
+
 // -- styled component props types ----------------------------------------------------------------- //
 export interface StyledPanelProps {
   imgUrl?: String
@@ -52,7 +54,7 @@ const Panel = ({ data, handlePanelClick, openIndex }: PanelComponentPropsType) =
     return data.map((item, index) => {
       let isOpen = openIndex === index
       return (
-        <StyledPanel isOpen={isOpen} onClick={() => handlePanelClick(index)} imgUrl={item.url}>
+        <StyledPanel key={index} isOpen={isOpen} onClick={() => handlePanelClick(index)} imgUrl={item.url}>
           <PanelFont isOpen={isOpen}>{item.name}</PanelFont>
         </StyledPanel>
       )
