@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "baseUrl": ".", // 路徑的基礎位置
+        "baseUrl": ".", 
         "paths": {
-           "@/*" : ["./src/*"] // path mapping 可設定多個 => @/ 代表指向基礎路徑下 src 底下位置
+           "@/*" : ["./src/*"] 
          }
     }
 }
