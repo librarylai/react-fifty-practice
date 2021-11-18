@@ -3,15 +3,23 @@ import Html from './template/Html'
 import React from 'react' // 引入 Root Component
 import ReactDOMServer from 'react-dom/server' // 引入 ReactDOMServer 將 component 轉成 static HTML string
 import { ServerStyleSheet } from 'styled-components' // <-- importing ServerStyleSheet
+import { StaticRouter } from "react-router-dom/server";
 import express from 'express'
 import fs from 'fs'
 
 const port: string | number = process.env.PORT || 3001
 const app = express()
 app.get('/', (req, res) => {
+	const context = {};
 	const sheet = new ServerStyleSheet() // <-- 建立樣式表
 	// 將 App 這個 component render 成 HTML string
-	const staticHTML = ReactDOMServer.renderToString(sheet.collectStyles(<App />))
+	const staticHTML = ReactDOMServer.renderToString(
+		sheet.collectStyles(
+			<StaticRouter location={req.url} >
+				<App />
+			</StaticRouter>
+		)
+	)
 	const styles = sheet.getStyleTags() // <-- 從表中獲取所有標籤
 	fs.readFile('build/index.html', 'utf8', (err, data) => {
 		if (err) {
