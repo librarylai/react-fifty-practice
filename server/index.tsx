@@ -9,8 +9,8 @@ import fs from 'fs'
 
 const port: string | number = process.env.PORT || 3001
 const app = express()
-app.get('/', (req, res) => {
-	const context = {};
+app.use(express.static('build')) // 指定靜態資源
+app.get('*', (req, res) => {
 	const sheet = new ServerStyleSheet() // <-- 建立樣式表
 	// 將 App 這個 component render 成 HTML string
 	const staticHTML = ReactDOMServer.renderToString(
@@ -35,6 +35,6 @@ app.get('/', (req, res) => {
 		)
 	})
 })
-app.use(express.static('build')) // 指定靜態資源
+
 
 app.listen(port, () => console.log('Example app is listening on port 3001.'))

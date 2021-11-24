@@ -32,7 +32,7 @@
 	"scripts": {
 		"dev:build-server": "webpack --config webpack.server.js -w",
 		"dev:build-client": "craco build",
-		"dev:server": "nodemon ./dist/main.js",
+		"dev:server": " nodemon  ./dist/main.js",
 		"dev": "npm-run-all --parallel dev:server dev:build-*",
 		"build-server": "webpack --config webpack.server.js",
 		"start": "craco start",

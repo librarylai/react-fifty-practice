@@ -4,7 +4,7 @@ import React from 'react'
 import ScrollAnimationPage from './containers/scrollAnimation/ScrollAnimationPage'
 import RotatingNavigationPage from './containers/rotatingNavigation/RotatingNavigationPage'
 import HiddenSearchWidgetPage from './containers/hiddenSearchWidget/HiddenSearchWidgetPage'
-import StepsPage from './containers/steps/StepsPage'
+// import StepsPage from './containers/steps/StepsPage'
 import {
   Routes, // 這邊需注意 官方文件寫的 Switch 已經在最新版本被改用為 Routes
   Route,
@@ -43,7 +43,7 @@ function App() {
         <Route path='/RotatingNavigation' element={<RotatingNavigationPage />} />
         <Route path='/BlurryLoading' element={<BlurryLoadingPage />} />
         <Route path='/HiddenSearchWidget' element={<HiddenSearchWidgetPage />} />
-        <Route path='/StepsPage' element={<StepsPage />} />
+        {/* <Route path='/StepsPage' element={<StepsPage />} /> */}
       </Routes>
     </div>
   )
