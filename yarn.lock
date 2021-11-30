@@ -591,7 +591,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/plugin-syntax-dynamic-import@^7.8.0", "@babel/plugin-syntax-dynamic-import@^7.8.3":
+"@babel/plugin-syntax-dynamic-import@^7.7.4", "@babel/plugin-syntax-dynamic-import@^7.8.0", "@babel/plugin-syntax-dynamic-import@^7.8.3":
   version "7.8.3"
   resolved "https://registry.npm.taobao.org/@babel/plugin-syntax-dynamic-import/download/@babel/plugin-syntax-dynamic-import-7.8.3.tgz#62bf98b2da3cd21d626154fc96ee5b3cb68eacb3"
   integrity sha1-Yr+Ysto80h1iYVT8lu5bPLaOrLM=
@@ -1755,6 +1755,27 @@
     "@types/node" "*"
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
+
+"@loadable/babel-plugin@^5.13.2":
+  version "5.13.2"
+  resolved "https://registry.npm.taobao.org/@loadable/babel-plugin/download/@loadable/babel-plugin-5.13.2.tgz#373cddc64ee5437814f7dca1c1b6a7b2c1665a9f"
+  integrity sha1-Nzzdxk7lQ3gU99yhwbanssFmWp8=
+  dependencies:
+    "@babel/plugin-syntax-dynamic-import" "^7.7.4"
+
+"@loadable/server@^5.15.1":
+  version "5.15.1"
+  resolved "https://registry.nlark.com/@loadable/server/download/@loadable/server-5.15.1.tgz#fe8e8b2a631ad0ae48dfb765ec96d758ed5206dd"
+  integrity sha1-/o6LKmMa0K5I37dl7JbXWO1SBt0=
+  dependencies:
+    lodash "^4.17.15"
+
+"@loadable/webpack-plugin@^5.15.1":
+  version "5.15.1"
+  resolved "https://registry.nlark.com/@loadable/webpack-plugin/download/@loadable/webpack-plugin-5.15.1.tgz#826891c76611d22b5e8259709664f9f18ab91526"
+  integrity sha1-gmiRx2YR0itegllwlmT58Yq5FSY=
+  dependencies:
+    make-dir "^3.0.2"
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
