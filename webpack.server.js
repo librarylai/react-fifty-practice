@@ -1,6 +1,6 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
 	entry: './server/index.tsx',
@@ -15,7 +15,7 @@ module.exports = {
 	watch: true,
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
-		plugins:[ new TsconfigPathsPlugin() ] // 將 tsconfig.json 的 paths 規則套入到 webpack 中 ex. alias
+		plugins: [ new TsconfigPathsPlugin()], // 將 tsconfig.json 的 paths 規則套入到 webpack 中 ex. alias
 	},
 	module: {
 		rules: [
