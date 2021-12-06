@@ -38,7 +38,7 @@
 		"dev": "npm-run-all --parallel dev:server dev:build-*",
 		"build-server": "webpack --config webpack.server.js",
 		"start": "craco start",
-		"build": "craco build",
+		"build": "craco build && mv build/index.html build/app.html",
 		"test": "craco test",
 		"eject": "react-scripts eject"
 	},
