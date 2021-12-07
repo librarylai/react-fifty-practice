@@ -1,4 +1,4 @@
-# 【筆記】運用 CRA 做 Server Side Rendering 
+# 【筆記】SSR 系列第一集【運用 CRA 做 Server Side Rendering】 
 ###### tags: `筆記文章`
 最近剛好滑到了不少篇在講 Server-Side Rendering(SSR) 的文章，就想說來找找看與 React 相關的這方面知識，而在使用 React 的過程中，大部分起專案的方式都是透過 Create-React-App(CRA) 來建立專案，所以本篇主要會以將 CRA 去做 SSR 的角度來介紹與實作。
 
@@ -56,8 +56,49 @@ npx create-react-app cra-ssr
 cd cra-ssr
 npm start
 ```
+筆者這邊是直接沿用一個之前的練習專案來做調整，該專案一樣是以 create-react-app 的方式起的請大家放心～
+#### 使用 craco 設定路徑別名
+因為筆者習慣用`@`來配置路徑別名，所以這邊額外安裝 [craco](https://www.npmjs.com/package/@craco/craco) 與 [craco-alias](https://github.com/risenforces/craco-alias) 來設定路徑別名。使用 `craco` 還有一個優點就是方便我們去『複寫』或『增加』webpack 的設定，這樣就不需要去 `eject` 整個專案。
+##### craco.config.js
+```javascript=
+/* craco.config.js */
+const CracoAlias = require('craco-alias')
+module.exports = {
+    plugins: [
+        {
+            plugin: CracoAlias,
+            options: {
+                source: 'tsconfig',
+                // baseUrl SHOULD be specified
+                // plugin does not take it from tsconfig
+                baseUrl: '.',
+                /* tsConfigPath should point to the file where "baseUrl" and "paths" 
+             are specified*/
+                tsConfigPath: './tsconfig.paths.json',
+            },
+        },
+    ],
+}
+```
+這邊是透過 `tsconfig.paths.json` 來設定路徑別名，相關內容可以往下滑到 TypeScript 的部分，這邊就不再額外贅述。
 
+##### package.json
+```javascript=
+/* mac 寫法 */
+"start": "craco start",
+"build": "craco build && mv build/index.html build/app.html",
+"test": "craco test",
+    
+/* windows 寫法 */
+"build": "craco build && move \"build\\index.html\" \"build\\app.html\"
+```
+**:warning: 請注意這段 :** `mv build/index.html build/app.html`
 
+這邊調整了打包後的 `index.html` 檔名改為 `app.html`，這是防止在之後的 Server-Side Redndering 中提供靜態資源檔時 `app.use(express.static('build'))` 自動去讀取了 `index.html`，所以這邊將它改名。
+
+**額外解法 : 透過 `express.static('build',{index: false})` 的第二個參數設定 index 為 false。** 
+
+**:warning: 這邊的範例程式碼會將兩種方式一同使用，大家可以擇一使用即可。**
 
 ## Server 端架構與基本設置
 完成上面的基本畫面之後，現在要開始建立 Server 的架構與編譯上設定，Server 端的部分主要採用 Node.js 與 Express 框架，所以要先在專案中加入 Express 套件。
@@ -166,7 +207,7 @@ module.exports ={
         rules:[
             /* babel 設定 */
             {
-                test: /\.js$/,
+                test: /\.(js|jsx|tsx|ts)$/,
                 exclude: /node_modules/,
                 use: 'babel-loader'
             }
@@ -186,8 +227,15 @@ TypeScript 是一個包裝在 JavaScript 之上的語言，也可以說是 JavaS
 
 而使用 TypeScript 的好處在於，它提供了靜態型別檢查系統，讓我們可以在編譯期間就可以發現錯誤，也可以利用它強型別的特性去約束開發者們的習慣，讓開發者在開發上能更嚴謹的撰寫程式碼，減少 Debug 的時間。
 
+---
+
+**推薦 : 對 Typescript 有興趣的讀者，可以去讀 Kira 大大的 Kira 系列文章。**[傳送門:door:](https://ithelp.ithome.com.tw/users/20120053/ironman/2273)
+
+---
+
 #### 安裝 typescript 套件
 > yarn add --dev @types/node @types/express
+
 
 #### 創建 tsconfig 設定檔
 在專案目錄下新增一隻 tsconfig.server.js 檔，來處理在 server 時的 typescripte 設定
@@ -227,11 +275,15 @@ TypeScript 是一個包裝在 JavaScript 之上的語言，也可以說是 JavaS
 /* webpack.server.js */
   {
     test: /\.ts(x?)$/,
-    loader: 'ts-loader',
     exclude: /node_modules/,
-    options: {
-      configFile: 'tsconfig.server.json',
-    },
+    use: [
+        {
+            loader: 'ts-loader',
+            options: {
+                configFile: 'tsconfig.server.json',
+            },
+        },
+    ],
   },
 ```
 
@@ -247,7 +299,7 @@ TypeScript 是一個包裝在 JavaScript 之上的語言，也可以說是 JavaS
 在 package.json 的 script 中加入 server 打包的相關指令。
 ```javascript=
 "dev:build-server": "webpack --config webpack.server.js -w",
-"dev:build-client": "craco build",
+"dev:build-client": "craco build && mv build/index.html build/app.html",
 "dev:server": "nodemon ./dist/main.js",
 "dev": "npm-run-all --parallel dev:server dev:build-*",
 ```
@@ -422,20 +474,21 @@ app.get('/', (req, res) => {
 ```
 (補圖片 GIF)
 
-### 4.讀取 build/index.html 來模擬真實情況
-在開始時實做之前讓我們回頭想想為什麼要做 Server-Side-Rendering ? 這是因為我們打包出來的 index.html 只會有一個 id 為 root 的 div HTML Tag，其餘的程式碼是透過讀取 JS 檔後動態產生的，導致搜索引擎爬蟲在一開始爬取網站時無法正確的抓到該頁面的程式碼，使得 SEO 分數低落。
+### 4.讀取 build/app.html 來模擬真實情況
+在開始時實做之前讓我們回頭想想為什麼要做 Server-Side-Rendering ? 這是因為我們打包出來的 app.html 只會有一個 id 為 root 的 div HTML Tag，其餘的程式碼是透過讀取 JS 檔後動態產生的，導致搜索引擎爬蟲在一開始爬取網站時無法正確的抓到該頁面的程式碼，使得 SEO 分數低落。
 
 所以要改善的部分最主要的就是【**讓程式碼能在 Server 端回應給瀏覽器時就產生出來**】，因此讓我們重新改寫一下 Server 檔。
 
 ```javascript=
 /* server/index.ts */
 /* ...上面省略... */
+app.use(express.static('build',{index: false})) // 指定靜態資源
 app.get('/', (req, res) => {
     const sheet = new ServerStyleSheet() // <-- 建立樣式表
     // 將 App 這個 component render 成 HTML string
     const staticHTML = ReactDOMServer.renderToString(sheet.collectStyles(<App />))
     const styles = sheet.getStyleTags() // <-- 從表中獲取所有標籤
-    fs.readFile('build/index.html', 'utf8', (err, data) => {
+    fs.readFile('build/app.html', 'utf8', (err, data) => {
         if (err) {
             console.log('err:', err)
             return
@@ -449,12 +502,11 @@ app.get('/', (req, res) => {
         )
     })
 })
-app.use(express.static('build')) // 指定靜態資源
 ```
 
 透過 `readFile` 讀取完檔案後，將檔案內容裡的 `<div id="root"></div>` 替換成我們上面處理完得 `靜態 HTML`，這樣就在第一時間將程式碼回應給瀏覽器了，讓我們看看差別吧!!!
 
-**前端打包後檔案 build/index.html ( CSR )**
+**前端打包後檔案 build/app.html ( CSR )**
 
 ![](https://i.imgur.com/gYRjUJD.png)
 
@@ -464,20 +516,31 @@ app.use(express.static('build')) // 指定靜態資源
 
 從上面兩張圖就可以看出明顯的差異，一張是我們平時透過 Create-React-App 打包後產生的 index.html；一張是我們透過 Server 端實作 Server-Side-Rending 效果，可以很明顯的看到我們將 component 的內容產生進 root DOM 裡面了。 :smile: 
 
-
-## 實作問題
-1. **TypeError: loaderContext.getOptions is not a function**
-解答: [vue: 使用ts-loader引入ts文件](https://blog.csdn.net/mouday/article/details/116653235)
-2. **Blank page after running build on create-react-app**
-解答: [Parameter "homepage" in package.json](https://github.com/facebook/create-react-app/issues/1487)
-3. **SSR with styled-component** 
-解答: [[譯] 使用 styled-components 的 React 服務端渲染極簡指南](https://iter01.com/37781.html)
-4. **window is not defined when the server run** 
-解答: [USING WINDOW IN REACT SSR: THE COMPLETE GUIDE](https://stephencook.dev/blog/using-window-in-react-ssr/)
-
 ## 結論
 這次簡單的實作了如何透過 Create-React-App 來達成 Server-Side-Rendering 的效果，實作過程中碰到了不少問題，尤其是在設定  webpack、typescript 等過程中踩了不少坑，以往都依賴 react-script 幫我們把 webpack 等這些設定好，所以不常從零開始去做一系列的設定，剛好透過這次的機會把整個再學習了一次。
-本篇可以算是 **SSR 系列的入門**，之後還打算再繼續研究【Router 與 Code Splitting 】、【 Fetch Api 】...等內容，還請各位讀者拭目以待瞜~~~
+本篇可以算是 **SSR 系列的入門**，之後還打算再繼續研究【Router 與 Code Splitting 】、【 Redux 】...等內容，還請各位讀者拭目以待瞜~~~
+
+## 實作問題
+1. **How to setup TypeScript + Babel + Webpack?**
+解答：You compilation setup should have TS output fed to Babel. [參考連結](https://stackoverflow.com/questions/38320220/how-to-setup-typescript-babel-webpack)
+2. **TypeError: loaderContext.getOptions is not a function**
+解答：[vue: 使用ts-loader引入ts文件](https://blog.csdn.net/mouday/article/details/116653235)
+3. **Blank page after running build on create-react-app**
+解答：[Parameter "homepage" in package.json](https://github.com/facebook/create-react-app/issues/1487)
+4. **SSR with styled-component** 
+解答：[[譯] 使用 styled-components 的 React 服務端渲染極簡指南](https://iter01.com/37781.html)
+5. **window is not defined when the server run** 
+解答: [USING WINDOW IN REACT SSR: THE COMPLETE GUIDE](https://stephencook.dev/blog/using-window-in-react-ssr/)
+6. **'Cannot parse tsconfig.path.json' error**
+解答：在 json 文件中不能存在註解。[參考連結](https://github.com/risenforces/craco-alias/issues/23)
+7. **如何修改 Create React App 打包後的 index.html 名稱**
+解答：[How can I rename index.html in a create-react-app project?](https://stackoverflow.com/questions/50780983/how-can-i-rename-index-html-in-a-create-react-app-project)
+8. **windows 中 package.json 設定 script 來移動檔案找不到路徑問題**
+解答：在 mac 上是使用 `mv` 且路徑正常使用斜線(`/`) 即可，但在 windows 上請將 `mv` 改為`move` 且路徑應使用反斜線(`\`)。[參考連結](https://www.codenong.com/38858718/)
+9. **Express 靜態資源自動讀取 index.html 檔案問題**
+解答：可以透過 `express.static('build',{index:false})` 第二個參數去額外設定將自動讀取 index.html 功能關閉。[Express Static Middleware serves index.html automatically](https://stackoverflow.com/questions/42226397/express-static-middleware-serves-index-html-automatically)
+
+
 
 #### 以上就是這次【透過 CRA 實作 SSR 】的全部內容，希望對想了解 Server-Side-Rendering 的人能有一點點幫助，如有任何錯誤或冒犯的地方還請各位多多指教。
 
