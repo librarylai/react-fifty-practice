@@ -15,21 +15,25 @@ module.exports = {
 	watch: true,
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
-		plugins: [ new TsconfigPathsPlugin()], // 將 tsconfig.json 的 paths 規則套入到 webpack 中 ex. alias
+		plugins: [new TsconfigPathsPlugin()], // 將 tsconfig.json 的 paths 規則套入到 webpack 中 ex. alias
 	},
 	module: {
 		rules: [
 			{
 				test: /\.ts(x?)$/,
-				loader: 'ts-loader',
 				exclude: /node_modules/,
-				options: {
-					configFile: 'tsconfig.server.json',
-				},
+				use: [
+					{
+						loader: 'ts-loader',
+						options: {
+							configFile: 'tsconfig.server.json',
+						},
+					},
+				],
 			},
 
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx|tsx|ts)$/,
 				exclude: /node_modules/,
 				use: 'babel-loader',
 			},
