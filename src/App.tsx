@@ -2,7 +2,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 
 import React from 'react'
 import loadable from '@loadable/component'
-
+import StickyNaigation from '@/components/stickyNaigation/StickyNavigation'
 /* 最原始版本 一般引入 */
 // import BlurryLoadingPage from '@/containers/blurryLoading/BlurryLoadingPage'
 // import ExpandingCardsPage from '@/containers/expandingCards/ExpandingCardsPage'
@@ -41,29 +41,7 @@ function LoadingComponent() {
 function App() {
 	return (
 		<div>
-			<nav>
-				<ul>
-					<li>
-						<Link to="/ExpandingCards">ExpandingCards</Link>
-					</li>
-					<li>
-						<Link to="/ScrollAnimation">ScrollAnimation</Link>
-					</li>
-					<li>
-						<Link to="/RotatingNavigation">RotatingNavigation</Link>
-					</li>
-					<li>
-						<Link to="/BlurryLoading">BlurryLoading</Link>
-					</li>
-					<li>
-						<Link to="/HiddenSearchWidget">HiddenSearchWidget</Link>
-					</li>
-					<li>
-						<Link to="/StepsPage">StepsPage</Link>
-					</li>
-				</ul>
-			</nav>
-
+			<StickyNaigation/>
 			<Routes>
 				<Route path="/" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
 				<Route path="/ExpandingCards" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
