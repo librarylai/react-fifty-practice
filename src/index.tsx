@@ -2,15 +2,21 @@ import './index.css'
 
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { loadableReady } from '@loadable/component'
 import reportWebVitals from './reportWebVitals'
+import { store } from '@/store/store'
 
 // 一般 CRA 進入點
 // ReactDOM.render(
 // 	<React.StrictMode>
-// 		<App />
+// 		<Provider store={store}>
+// 			<BrowserRouter>
+// 				<App />
+// 			</BrowserRouter>
+// 		</Provider>
 // 	</React.StrictMode>,
 // 	document.getElementById('root')
 // )
@@ -18,9 +24,11 @@ import reportWebVitals from './reportWebVitals'
 // SSR 改用 ReactDOM.hydrate()
 // ReactDOM.hydrate(
 // 	<React.StrictMode>
+//   <Provider store={store}>
 // 		<BrowserRouter>
 // 			<App />
 // 		</BrowserRouter>
+//	</Provider>
 // 	</React.StrictMode>,
 // 	document.getElementById('root')
 // )
@@ -29,9 +37,11 @@ import reportWebVitals from './reportWebVitals'
 loadableReady(() => {
 	ReactDOM.hydrate(
 		<React.StrictMode>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
+			<Provider store={store}>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</Provider>
 		</React.StrictMode>,
 		document.getElementById('root')
 	)
