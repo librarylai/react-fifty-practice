@@ -1,6 +1,8 @@
 import * as React from 'react'
-import styled from 'styled-components'
+
 import cssVariables from '@/scss/_Variables.module.scss'
+import styled from 'styled-components'
+
 // -- styled component props types ----------------------------------------------------------------- //
 export interface StyledStepProps {
   isActive?: boolean
@@ -18,7 +20,7 @@ const StepsContainer = styled.div`
   &::before {
     content: '';
     position: absolute;
-    background-color: ${cssVariables.stepLineBorderEmpty};
+    background-color: #e0e0e0;
     top: 50%;
     transform: translateY(-50%);
     height: 4px;
@@ -27,7 +29,7 @@ const StepsContainer = styled.div`
   }
 `
 const StepsProgress = styled.div<StyledProgressProps>`
-  background-color: ${cssVariables.stepLineBorderFill};
+  background-color: #3498bd;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -45,7 +47,7 @@ const Step = styled.div<StyledStepProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 3px ${({ isActive }) => (isActive ? cssVariables.stepLineBorderFill : cssVariables.stepLineBorderEmpty)};
+  border: solid 3px ${({ isActive }) => (isActive ? '#3498bd' : '#e0e0e0')};
   transition: 0.4s ease;
   z-index: 1;
 `

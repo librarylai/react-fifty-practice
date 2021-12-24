@@ -1,8 +1,15 @@
 import { Link, Route, Routes } from 'react-router-dom'
 
 import React from 'react'
+import StickyNavigation from '@/components/stickyNaigation/StickyNavigation'
 import loadable from '@loadable/component'
-import StickyNaigation from '@/components/stickyNaigation/StickyNavigation'
+import styled from 'styled-components'
+
+const Container = styled.div`
+	position: relative;
+	top: 110px;
+`
+
 /* 最原始版本 一般引入 */
 // import BlurryLoadingPage from '@/containers/blurryLoading/BlurryLoadingPage'
 // import ExpandingCardsPage from '@/containers/expandingCards/ExpandingCardsPage'
@@ -33,6 +40,9 @@ const RotatingNavigationPage = loadable(
 const HiddenSearchWidgetPage = loadable(
 	() => import(/*webpackChunkName:'HiddenSearchWidgetPage'*/ '@/containers/hiddenSearchWidget/HiddenSearchWidgetPage')
 )
+const StepsPage = loadable(
+	() => import(/*webpackChunkName:'StepPage'*/ '@/containers/steps/StepsPage')
+)
 
 function LoadingComponent() {
 	return <div>Loading</div>
@@ -41,21 +51,27 @@ function LoadingComponent() {
 function App() {
 	return (
 		<div>
-			<StickyNaigation/>
-			<Routes>
-				<Route path="/" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
-				<Route path="/ExpandingCards" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
-				<Route path="/ScrollAnimation" element={<ScrollAnimationPage fallback={<LoadingComponent />} />} />
-				<Route
-					path="/RotatingNavigation"
-					element={<RotatingNavigationPage fallback={<LoadingComponent />} />}
-				/>
-				<Route path="/BlurryLoading" element={<BlurryLoadingPage fallback={<LoadingComponent />} />} />
-				<Route
-					path="/HiddenSearchWidget"
-					element={<HiddenSearchWidgetPage fallback={<LoadingComponent />} />}
-				/>
-			</Routes>
+			<StickyNavigation />
+			<Container>
+				<Routes>
+					<Route path="/" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
+					<Route path="/ExpandingCards" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
+					<Route path="/ScrollAnimation" element={<ScrollAnimationPage fallback={<LoadingComponent />} />} />
+					<Route
+						path="/RotatingNavigation"
+						element={<RotatingNavigationPage fallback={<LoadingComponent />} />}
+					/>
+					<Route path="/BlurryLoading" element={<BlurryLoadingPage fallback={<LoadingComponent />} />} />
+					<Route
+						path="/HiddenSearchWidget"
+						element={<HiddenSearchWidgetPage fallback={<LoadingComponent />} />}
+					/>
+					<Route
+						path="/StepsPage"
+						element={<StepsPage fallback={<LoadingComponent />} />}
+					/>
+				</Routes>
+			</Container>
 		</div>
 	)
 }

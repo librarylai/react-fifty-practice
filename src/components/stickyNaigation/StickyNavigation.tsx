@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
+
 import { Link } from 'react-router-dom'
 
 interface StyledProps {
   isActive?: boolean
 }
-const StickyNaigationContainer = styled.nav<StyledProps>`
+const StickyNavigationContainer = styled.nav<StyledProps>`
   position: fixed;
   top: 0;
   left: 0;
@@ -13,6 +14,7 @@ const StickyNaigationContainer = styled.nav<StyledProps>`
   background-color: ${({ isActive }) => (isActive ? '#fff' : '#222')};
   transition: all 0.3s ease-in-out;
   box-shadow: ${({ isActive }) => (isActive ? '0 2px 10px rgba(0, 0, 0, 0.3)' : '')};
+	z-index: 999;
 `
 const NavContainer = styled.nav<StyledProps>`
   display: flex;
@@ -49,7 +51,6 @@ export default function StickyNaigation(props: IStickyNaigationProps) {
   const navRef = useRef<HTMLElement>(null)
   const fixNav = () => {
 		if (!navRef.current) return
-		console.log('in')
     if (window.scrollY > navRef.current.offsetHeight + 150) {
       setIsActive(true)
     } else {
@@ -63,7 +64,7 @@ export default function StickyNaigation(props: IStickyNaigationProps) {
 		}
   }, [])
   return (
-    <StickyNaigationContainer isActive={isActive} ref={navRef}>
+    <StickyNavigationContainer isActive={isActive} ref={navRef}>
       <NavContainer>
         <Logo isActive={isActive}>My Website</Logo>
         <NavUl>
@@ -99,6 +100,6 @@ export default function StickyNaigation(props: IStickyNaigationProps) {
           </li>
         </NavUl>
       </NavContainer>
-    </StickyNaigationContainer>
+    </StickyNavigationContainer>
   )
 }

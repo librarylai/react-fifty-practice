@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+
 import styled from 'styled-components'
+
 interface StyledProps {
   currentIndex?: number
   isOpen?: boolean
@@ -8,6 +10,8 @@ interface StyledProps {
 const Background = styled.div`
   min-height: 100vh;
   background-color: #222;
+	position: 'relative';
+	box-sizing: border-box;
 `
 const RotatingNavigationPageContainer = styled.div<StyledProps>`
   width: 100vw;
@@ -20,7 +24,7 @@ const RotatingNavigationPageContainer = styled.div<StyledProps>`
   transform: ${({ isOpen }) => (isOpen ? `rotate(-20deg)` : '')};
 `
 const CircleContainer = styled.div`
-  position: fixed;
+  position: absolute;
   top: -100px;
   left: -100px;
 `

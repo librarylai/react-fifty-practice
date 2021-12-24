@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react'
 
 import { Steps } from '@/containers/steps/component/Steps'
-import cssVariables from '@/scss/_Variables.module.scss'
 import styled from 'styled-components'
 
 const StepPageContainers = styled.div`
@@ -13,7 +12,7 @@ const StepPageContainers = styled.div`
   background-color: #f7f7fb;
 `
 const Button = styled.button`
-  background-color: ${cssVariables.stepLineBorderFill};
+  background-color: #3498bd;
   color: #fff;
   border: 0;
   border-radius: 6px;
@@ -29,7 +28,7 @@ const Button = styled.button`
     outline: 0;
   }
   &:disabled {
-    background-color: ${cssVariables.stepLineBorderEmpty};
+    background-color: #e0e0e0;
     cursor: not-allowed;
   }
 `
