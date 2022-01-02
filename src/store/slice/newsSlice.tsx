@@ -1,4 +1,6 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit'
+// 透過 createAsyncThunk 來實作一個 非同步的 action 
+// 特別記得要 export ，才可方便之後 dispatch 使用
 export const fetchNewsAPI = createAsyncThunk('news/fetchNewsAPI', async (_: void,thunkId) => {
   const response = await fetch('https://newsapi.org/v2/top-headlines?country=tw&category=business&apiKey=41a1d4035b60422a931ed0f23b95e320')
   const data = await response.json()
@@ -19,6 +21,7 @@ const newsSlice = createSlice({
   name: 'news',
   initialState: initState,
   reducers: {
+    // 目前範例未使用到
     fetchNewsData: (state, action: PayloadAction<NewsState>) => {
       state.newsData = action.payload.newsData
     },
@@ -28,7 +31,7 @@ const newsSlice = createSlice({
           state.newsData = payload
     }
   }
-  
+  // 另一種寫法： 使用 (builder) =>{}
   // (builder) => {
   //   builder.addCase(fetchNewsAPI.fulfilled, (state, { payload }) => {
   //     state.newsData = payload.newsData
