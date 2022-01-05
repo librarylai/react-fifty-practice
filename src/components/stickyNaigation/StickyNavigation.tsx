@@ -15,6 +15,7 @@ const StickyNavigationContainer = styled.nav<StyledProps>`
   transition: all 0.3s ease-in-out;
   box-shadow: ${({ isActive }) => (isActive ? '0 2px 10px rgba(0, 0, 0, 0.3)' : '')};
 	z-index: 999;
+	
 `
 const NavContainer = styled.nav<StyledProps>`
   display: flex;
@@ -44,9 +45,9 @@ const Logo = styled.h1<StyledProps>`
   padding: 6px 15px;
 `
 
-export interface IStickyNaigationProps {}
+export interface IStickyNavigationProps {}
 
-export default function StickyNaigation(props: IStickyNaigationProps) {
+export default function StickyNaigation(props: IStickyNavigationProps) {
   const [isActive, setIsActive] = useState(false)
   const navRef = useRef<HTMLElement>(null)
   const fixNav = () => {

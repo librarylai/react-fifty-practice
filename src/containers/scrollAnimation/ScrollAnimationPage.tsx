@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { RootState, useAppDispatch } from '@/store/store'
+import { cleanNewsData, fetchNewsAPI } from '@/store/slice/newsSlice'
+
 import styled from 'styled-components'
 import useIsSsr from '@/hook/useIsSsr'
-import { RootState, useAppDispatch } from '@/store/store'
-import { fetchNewsAPI } from '@/store/slice/newsSlice'
+import { useSelector } from 'react-redux'
+
 const ScrollAnimationPageContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -40,10 +42,13 @@ const ScrollAnimationPage = (props: Props) => {
   const boxRefs = useRef<Array<HTMLDivElement>>([])
   const dispatch = useAppDispatch()
   const newsData = useSelector((state: RootState) => state.news.newsData)
-  // componDidMount
-  useEffect(() => {
+  // componentDidMount 與 componentWillUnMount
+	useEffect(() => {
     dispatch(fetchNewsAPI())
-  }, [])
+		return ()=>{
+			dispatch(cleanNewsData())
+		}
+  }, [dispatch])
   // 檢查是否要顯是 box
   useEffect(() => {
     const handleScrollHight = () => {
