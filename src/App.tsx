@@ -3,6 +3,8 @@ import { Link, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import StickyNavigation from '@/components/stickyNaigation/StickyNavigation'
 import loadable from '@loadable/component'
+import { matchRoutes } from 'react-router-dom'
+import routes from '@/route/routes'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -40,15 +42,16 @@ const RotatingNavigationPage = loadable(
 const HiddenSearchWidgetPage = loadable(
 	() => import(/*webpackChunkName:'HiddenSearchWidgetPage'*/ '@/containers/hiddenSearchWidget/HiddenSearchWidgetPage')
 )
-const StepsPage = loadable(
-	() => import(/*webpackChunkName:'StepPage'*/ '@/containers/steps/StepsPage')
-)
+const StepsPage = loadable(() => import(/*webpackChunkName:'StepPage'*/ '@/containers/steps/StepsPage'))
 
 function LoadingComponent() {
 	return <div>Loading</div>
 }
-
-function App() {
+interface IApp extends React.FC {
+	serverSideProps?: []
+}
+function App({ serverSideProps }: IApp) {
+	console.log('matchRoutes', matchRoutes(routes, '/ScrollAnimation'))
 	return (
 		<div>
 			<StickyNavigation />
@@ -56,7 +59,12 @@ function App() {
 				<Routes>
 					<Route path="/" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
 					<Route path="/ExpandingCards" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
-					<Route path="/ScrollAnimation" element={<ScrollAnimationPage fallback={<LoadingComponent />} />} />
+					<Route
+						path="/ScrollAnimation"
+						element={
+							<ScrollAnimationPage serverSideProps={serverSideProps} fallback={<LoadingComponent />} />
+						}
+					/>
 					<Route
 						path="/RotatingNavigation"
 						element={<RotatingNavigationPage fallback={<LoadingComponent />} />}
@@ -66,10 +74,7 @@ function App() {
 						path="/HiddenSearchWidget"
 						element={<HiddenSearchWidgetPage fallback={<LoadingComponent />} />}
 					/>
-					<Route
-						path="/StepsPage"
-						element={<StepsPage fallback={<LoadingComponent />} />}
-					/>
+					<Route path="/StepsPage" element={<StepsPage fallback={<LoadingComponent />} />} />
 				</Routes>
 			</Container>
 		</div>

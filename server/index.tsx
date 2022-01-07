@@ -1,6 +1,7 @@
 import App from '../src/App'
 import { ChunkExtractor } from '@loadable/server'
 import Html from './template/Html'
+import { IRouteItem } from '@/interface/GeneralInterface'
 import { Provider } from 'react-redux'
 import React from 'react' // 引入 Root Component
 import ReactDOMServer from 'react-dom/server' // 引入 ReactDOMServer 將 component 轉成 static HTML string
@@ -8,7 +9,9 @@ import { ServerStyleSheet } from 'styled-components' // <-- importing ServerStyl
 import { StaticRouter } from 'react-router-dom/server'
 import express from 'express'
 import fs from 'fs'
+import { matchRoutes } from 'react-router-dom'
 import path from 'path'
+import routes from '@/route/routes'
 import { store } from '@/store/store'
 
 const port: string | number = process.env.PORT || 3001
@@ -17,8 +20,26 @@ app.use(express.static('build', { index: false })) // 指定靜態資源
 
 const statsFile = path.resolve('build/loadable-stats.json')
 
+function getServerSideProps(req: express.Request) {
+	// getServerSideProps is a promise function ( getServerSideProps 是一個 promise function )
+	let serverSidePropsPromise= matchRoutes(routes, req.path)
+		?.map(async (routeItem) => {
+			let route: IRouteItem = routeItem.route
+			let component = route.component
+			console.log('component', component)
+			if (!component) return null
+			if(component.getServerSideProps){
+				let serverSideProps = await component.getServerSideProps({ store })
+				return serverSideProps
+			}
+		})
+		.filter((hasPromise) => hasPromise)
+	return serverSidePropsPromise
+}
 /* 使用 loadable/server ， server 端實做 code Splitting */
 app.get('*', (req, res) => {
+	let serverSidePropsPromise = getServerSideProps(req)
+	let serverSidePropsList = Promise.all(serverSidePropsPromise)
 	const webExtractor = new ChunkExtractor({ statsFile })
 	const sheet = new ServerStyleSheet() // <-- 建立樣式表
 	// 將 App 這個 component render 成 HTML string
@@ -27,7 +48,7 @@ app.get('*', (req, res) => {
 			sheet.collectStyles(
 				<Provider store={store}>
 					<StaticRouter location={req.url}>
-						<App />
+						<App serverSideProps={serverSidePropsList}/>
 					</StaticRouter>
 				</Provider>
 			)
