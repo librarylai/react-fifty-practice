@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { RootState, useAppDispatch } from '@/store/store'
-import { cleanNewsData, fetchNewsAPI,fetchEnNewsAPI } from '@/store/slice/newsSlice'
+import { cleanNewsData, fetchNewsAPI, fetchEnNewsAPI } from '@/store/slice/newsSlice'
 
 import { IReactComponent, IServerSideContext, IServerSideProps } from '@/interface/GeneralInterface'
 import styled from 'styled-components'
@@ -39,25 +39,25 @@ interface Props {
 }
 
 const ScrollAnimationPage: IReactComponent<Props> = ({ serverSideProps }) => {
-  console.log('serverSideProps',serverSideProps)
   const [isSsr] = useIsSsr()
   const initVisibleHeight = isSsr ? 900 : (window.innerHeight / 5) * 4
   const [boxesTop, setBoxesTop] = useState<Array<number>>([])
   const boxRefs = useRef<Array<HTMLDivElement>>([])
   const dispatch = useAppDispatch()
   const newsData = useSelector((state: RootState) => state.news.newsData)
-  console.log('newsData',newsData)
   // componentDidMount 與 componentWillUnMount
   useEffect(() => {
-    console.log('in useEffect',serverSideProps)
-    if(serverSideProps && serverSideProps?.length > 0) return
-    console.log('call api')
-    dispatch(fetchNewsAPI())
+    // 簡單判斷如果是來自於 前端 切換近來的話，就呼叫ＡＰＩ 
+    // 如果來自於 Server Side， newsData 會在 Server 端 preload 時就有值
+    if (newsData.length === 0) {
+      dispatch(fetchNewsAPI())
+    }
+    // 離開 component 時清除 ( 做 componentWillUnMount 效果 )
     return () => {
       dispatch(cleanNewsData())
     }
-  }, [dispatch,serverSideProps])
-  
+  }, [])
+
   // 檢查是否要顯是 box
   useEffect(() => {
     const handleScrollHight = () => {
@@ -81,7 +81,7 @@ const ScrollAnimationPage: IReactComponent<Props> = ({ serverSideProps }) => {
   // render ScrollBox
   function renderScrollBox() {
     if (!newsData.length) return
-    return newsData.map((item:{title:string}, index:number) => {
+    return newsData.map((item: { title: string }, index: number) => {
       return (
         <ScrollableBox ref={(el: HTMLDivElement) => (boxRefs.current[index] = el)} isShow={checkShowBox(index)} key={index}>
           {item.title}
@@ -95,11 +95,8 @@ const ScrollAnimationPage: IReactComponent<Props> = ({ serverSideProps }) => {
 async function getServerSideProps(context: IServerSideContext) {
   // context 是來自 server 端傳進來的 ex. req ,res, redux store....
   const { store } = context
+  // 等待 獲取資料 塞到 store 
   await store.dispatch(fetchEnNewsAPI())
-  // const response = await axios.get(
-	// 	'https://newsapi.org/v2/everything?q=tesla&from=2021-12-08&sortBy=publishedAt&apiKey=41a1d4035b60422a931ed0f23b95e320'
-  // )
-	// console.log('response',response)
   return {
     props: {
       test: '我我來自 server side',

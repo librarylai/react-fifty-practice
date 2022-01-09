@@ -7,8 +7,8 @@ export const fetchNewsAPI = createAsyncThunk('news/fetchNewsAPI', async (_: void
   const response = await axios.get('https://newsapi.org/v2/top-headlines?country=tw&category=business&apiKey=41a1d4035b60422a931ed0f23b95e320')
   return response.data.articles
 })
+// 取得英文版 Data
 export const fetchEnNewsAPI = createAsyncThunk('news/fetchEnNewsAPI', async (_: void, thunkId) => {
-  console.log('fetchEnNewsAPI')
   const response = await axios.get('https://newsapi.org/v2/everything?q=tesla&from=2021-12-09&sortBy=publishedAt&apiKey=41a1d4035b60422a931ed0f23b95e320')
   return response.data.articles
 })
@@ -37,7 +37,6 @@ const newsSlice = createSlice({
       state.newsData = payload
     },
     [fetchEnNewsAPI.fulfilled.toString()]: (state, { payload }) => {
-      console.log('payload', payload)
       state.newsData = payload
     },
   },

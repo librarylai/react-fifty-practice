@@ -49,7 +49,6 @@ interface IApp {
 	serverSideProps?: Array<IServerSideProps | null>
 }
 const App:React.FC<IApp> = ({ serverSideProps }) => {
-	console.log('app',serverSideProps)
 	return (
 		<div>
 			<StickyNavigation />
