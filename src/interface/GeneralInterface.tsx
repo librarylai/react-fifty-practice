@@ -2,20 +2,25 @@ import { AppDispatch } from '@/store/store'
 import React from 'react'
 
 export interface IServerSideProps {
-	store: {
-		dispatch: AppDispatch
-	}
+  props?: {
+    test: string
+  }
+}
+export interface IServerSideContext {
+  store: {
+    dispatch: AppDispatch
+  }
 }
 
-export interface IReactComponent extends React.FC {
-	getServerSideProps?: (context: IServerSideProps) => {}
+export interface IReactComponent<T> extends React.FC<T> {
+  getServerSideProps?: (context: IServerSideContext) => Promise<{ props: { test: string } }>
 }
 
 export interface IRouteItem {
-	caseSensitive?: boolean
-	children?: IRouteItem[]
-	component?: IReactComponent
-	element?: React.ReactNode
-	index?: boolean
-	path?: string
+  caseSensitive?: boolean
+  children?: IRouteItem[]
+  component?: IReactComponent<{}>
+  element?: React.ReactNode
+  index?: boolean
+  path?: string
 }
