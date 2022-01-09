@@ -26,7 +26,7 @@ const HiddenSearchWidgetPageLoadable = loadable(
 )
 const StepsPageLoadable = loadable(() => import(/*webpackChunkName:'StepPage'*/ '@/containers/steps/StepsPage'))
 
-// 這邊多了一個  component 的參數，主要是給 Server Side 能夠呼叫 getServerSideProps
+// 這邊多了一個  component 的參數，主要是給 Server Side 能夠呼叫 component 的 getServerSideProps
 const serverSideRoutes: IRouteItem[] = [
 	{ path: '/', component: ExpandingCardsPage, element: <ExpandingCardsPageLoadable /> },
 	{ path: '/ExpandingCards', component: ExpandingCardsPage, element: <ExpandingCardsPageLoadable /> },
