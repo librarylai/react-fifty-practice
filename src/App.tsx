@@ -3,10 +3,8 @@ import { Link, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import StickyNavigation from '@/components/stickyNaigation/StickyNavigation'
 import loadable from '@loadable/component'
-import { matchRoutes } from 'react-router-dom'
-import routes from '@/route/routes'
 import styled from 'styled-components'
-
+import { IServerSideProps } from '@/interface/GeneralInterface'
 const Container = styled.div`
 	position: relative;
 	top: 110px;
@@ -47,11 +45,11 @@ const StepsPage = loadable(() => import(/*webpackChunkName:'StepPage'*/ '@/conta
 function LoadingComponent() {
 	return <div>Loading</div>
 }
-interface IApp extends React.FC {
-	serverSideProps?: []
+interface IApp {
+	serverSideProps?: Array<IServerSideProps | null>
 }
-function App({ serverSideProps }: IApp) {
-	console.log('matchRoutes', matchRoutes(routes, '/ScrollAnimation'))
+const App:React.FC<IApp> = ({ serverSideProps }) => {
+	console.log('app',serverSideProps)
 	return (
 		<div>
 			<StickyNavigation />

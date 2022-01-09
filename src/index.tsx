@@ -9,6 +9,13 @@ import { loadableReady } from '@loadable/component'
 import reportWebVitals from './reportWebVitals'
 import { store } from '@/store/store'
 
+declare  global {
+	interface  Window {
+	  __PRELOADED_STATE__?: {}
+	  __SERVER_SIDE_PROPS__?:[]
+	}
+  }
+
 // 一般 CRA 進入點
 // ReactDOM.render(
 // 	<React.StrictMode>
@@ -39,12 +46,13 @@ loadableReady(() => {
 		<React.StrictMode>
 			<Provider store={store}>
 				<BrowserRouter>
-					<App />
+					<App serverSideProps={ window.__SERVER_SIDE_PROPS__}/>
 				</BrowserRouter>
 			</Provider>
 		</React.StrictMode>,
 		document.getElementById('root')
 	)
+	delete window.__SERVER_SIDE_PROPS__
 })
 
 // If you want to start measuring performance in your app, pass a function
