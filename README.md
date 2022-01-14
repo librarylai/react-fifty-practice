@@ -2,7 +2,11 @@
 ###### tags: `筆記文章`
 最近剛好滑到了不少篇在講 Server-Side Rendering(SSR) 的文章，就想說來找找看與 React 相關的這方面知識，而在使用 React 的過程中，大部分起專案的方式都是透過 Create-React-App(CRA) 來建立專案，所以本篇主要會以將 CRA 去做 SSR 的角度來介紹與實作。
 
-*內容主要是以筆記的形式，一邊紀錄實作過程 與 一邊紀錄碰到問題，如有不太清楚的地方再麻煩告知一聲。*
+[【筆記】SSR 系列第二集【React Router v6 & Code Spliting】](https://hackmd.io/@9iEIv7CwQuKe2LizHnDhaQ/B186UUGvF)
+[【筆記】SSR 系列第三集【Redux Toolkit & GetServerSideProps 實作】](https://hackmd.io/@9iEIv7CwQuKe2LizHnDhaQ/r1vn47vcY)
+
+***內容主要是以筆記的形式，一邊紀錄實作過程 與 一邊紀錄碰到問題，如有不太清楚的地方再麻煩告知一聲。***
+
 
 ## Client-Side Rendering 與 Server-Side Rendering 介紹
 只要有在運用框架 (React、Vue、Angular) 的前端工程師一定就會聽過 Server-Side Rendering (SSR) 與 Client-Side Rendering(CSR) 這兩個名詞，而這兩個得差別究竟是什麼呢 ? 以及該如何選擇要使用 CSR 還是 SSR 呢 ? 相信這應該是大家都曾思考過的問題，首先就來分別介紹一下吧。
