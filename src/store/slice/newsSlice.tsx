@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
 import axios from 'axios'
 
 // 透過 createAsyncThunk 來實作一個 非同步的 action
@@ -9,7 +10,7 @@ export const fetchNewsAPI = createAsyncThunk('news/fetchNewsAPI', async (_: void
 })
 // 取得英文版 Data
 export const fetchEnNewsAPI = createAsyncThunk('news/fetchEnNewsAPI', async (_: void, thunkId) => {
-  const response = await axios.get('https://newsapi.org/v2/everything?q=tesla&from=2021-12-09&sortBy=publishedAt&apiKey=41a1d4035b60422a931ed0f23b95e320')
+  const response = await axios.get('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=41a1d4035b60422a931ed0f23b95e320')
   return response.data.articles
 })
 interface Item {

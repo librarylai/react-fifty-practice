@@ -1,8 +1,8 @@
+import { IReactComponent, IServerSideContext, IServerSideProps } from '@/interface/GeneralInterface'
 import React, { useEffect, useRef, useState } from 'react'
 import { RootState, useAppDispatch } from '@/store/store'
-import { cleanNewsData, fetchNewsAPI, fetchEnNewsAPI } from '@/store/slice/newsSlice'
+import { cleanNewsData, fetchEnNewsAPI, fetchNewsAPI } from '@/store/slice/newsSlice'
 
-import { IReactComponent, IServerSideContext, IServerSideProps } from '@/interface/GeneralInterface'
 import styled from 'styled-components'
 import useIsSsr from '@/hook/useIsSsr'
 import { useSelector } from 'react-redux'
@@ -27,10 +27,10 @@ const ScrollableBox = styled.div<{ isShow: boolean | undefined }>`
   border-radius: 10px;
   box-shadow: 2px 4px 5px #222;
   margin: 10px;
-  transform: ${({ isShow }) => (isShow ? ` translateX(0%)` : `translateX(200%)`)};
+  transform: ${({ isShow }) => (isShow ? ` translateX(0%)` : `translateX(500%)`)};
   transition: transform 0.4s ease;
   &:nth-of-type(even) {
-    transform: ${({ isShow }) => (isShow ? ` translateX(0%)` : `translateX(-200%)`)};
+    transform: ${({ isShow }) => (isShow ? ` translateX(0%)` : `translateX(-500%)`)};
   }
 `
 
