@@ -9,7 +9,10 @@ COPY yarn.lock /workspace
 RUN yarn install
 # 複製當前目錄到容器中的 /workspace
 COPY . /workspace
-EXPOSE 8080: 3000
+# 這是讓外部可以連近來的 PORT ex. loacalhost:8080 
+# 以前端舉例 外部 8080 連到 啟起來的 3000
+# docker -p 8080:3000 -d reacr-ssr
+EXPOSE 8080
 
 CMD ["yarn" ,"start"]
 
