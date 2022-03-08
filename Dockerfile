@@ -9,6 +9,7 @@ COPY yarn.lock /workspace
 RUN yarn install
 # 複製當前目錄到容器中的 /workspace
 COPY . /workspace
-EXPOSE 8080
+EXPOSE 8080: 3000
 
 CMD ["yarn" ,"start"]
+
