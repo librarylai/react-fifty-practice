@@ -9,10 +9,11 @@ COPY yarn.lock /workspace
 RUN yarn install
 # 複製當前目錄到容器中的 /workspace
 COPY . /workspace
-# 這是讓外部可以連近來的 PORT ex. loacalhost:8080 
-# 以前端舉例 外部 8080 連到 啟起來的 3000
-# docker -p 8080:3000 -d reacr-ssr
-EXPOSE 8080
+# 這是讓外部可以連近來的 PORT ex. loacalhost:5001 
+# 以前端舉例 外部 5001 連到 啟起來的 3000
+# SSR : docker run -p 5001:3001 -d react-ssr
+# CSR : docer run -p 8080: 3000 -d react-csr
+EXPOSE 5001
 
-CMD ["yarn" ,"start"]
+CMD ["yarn" ,"dev"]
 
