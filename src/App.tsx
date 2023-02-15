@@ -1,13 +1,17 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import React from 'react'
 import StickyNavigation from '@/components/stickyNaigation/StickyNavigation'
 import loadable from '@loadable/component'
 import styled from 'styled-components'
 import { IServerSideProps } from '@/interface/GeneralInterface'
+
+import { isEmpty } from 'lodash'
+import { isEmpty as isEmptyES } from 'lodash-es'
+
 const Container = styled.div`
-	position: relative;
-	top: 110px;
+  position: relative;
+  top: 110px;
 `
 
 /* 最原始版本 一般引入 */
@@ -25,57 +29,48 @@ const Container = styled.div`
 // const HiddenSearchWidgetPage = React.lazy(() => import(/*webpackChunkName:'HiddenSearchWidgetPage'*/ '@/containers/hiddenSearchWidget/HiddenSearchWidgetPage'))
 
 /* 使用 loadable component */
-const BlurryLoadingPage = loadable(
-	() => import(/*webpackChunkName:'BlurryLoadingPage'*/ '@/containers/blurryLoading/BlurryLoadingPage')
-)
+const BlurryLoadingPage = loadable(() => import(/*webpackChunkName:'BlurryLoadingPage'*/ '@/containers/blurryLoading/BlurryLoadingPage'))
 const ExpandingCardsPage = loadable(
-	() => import(/*webpackChunkName:'ExpandingCardsPage'*/ '@/containers/expandingCards/ExpandingCardsPage')
+  () => import(/*webpackChunkName:'ExpandingCardsPage'*/ '@/containers/expandingCards/ExpandingCardsPage')
 )
 const ScrollAnimationPage = loadable(
-	() => import(/*webpackChunkName:'ScrollAnimationPage'*/ '@/containers/scrollAnimation/ScrollAnimationPage')
+  () => import(/*webpackChunkName:'ScrollAnimationPage'*/ '@/containers/scrollAnimation/ScrollAnimationPage')
 )
 const RotatingNavigationPage = loadable(
-	() => import(/*webpackChunkName:'RotatingNavigationPage'*/ '@/containers/rotatingNavigation/RotatingNavigationPage')
+  () => import(/*webpackChunkName:'RotatingNavigationPage'*/ '@/containers/rotatingNavigation/RotatingNavigationPage')
 )
 const HiddenSearchWidgetPage = loadable(
-	() => import(/*webpackChunkName:'HiddenSearchWidgetPage'*/ '@/containers/hiddenSearchWidget/HiddenSearchWidgetPage')
+  () => import(/*webpackChunkName:'HiddenSearchWidgetPage'*/ '@/containers/hiddenSearchWidget/HiddenSearchWidgetPage')
 )
 const StepsPage = loadable(() => import(/*webpackChunkName:'StepPage'*/ '@/containers/steps/StepsPage'))
 
 function LoadingComponent() {
-	return <div>Loading</div>
+  return <div>Loading</div>
 }
 interface IApp {
-	serverSideProps?: Array<IServerSideProps | null>
+  serverSideProps?: Array<IServerSideProps | null>
 }
-const App:React.FC<IApp> = ({ serverSideProps }) => {
-	return (
-		<div>
-			<StickyNavigation />
-			<Container>
-				<Routes>
-					<Route path="/" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
-					<Route path="/ExpandingCards" element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
-					<Route
-						path="/ScrollAnimation"
-						element={
-							<ScrollAnimationPage serverSideProps={serverSideProps} fallback={<LoadingComponent />} />
-						}
-					/>
-					<Route
-						path="/RotatingNavigation"
-						element={<RotatingNavigationPage fallback={<LoadingComponent />} />}
-					/>
-					<Route path="/BlurryLoading" element={<BlurryLoadingPage fallback={<LoadingComponent />} />} />
-					<Route
-						path="/HiddenSearchWidget"
-						element={<HiddenSearchWidgetPage fallback={<LoadingComponent />} />}
-					/>
-					<Route path="/StepsPage" element={<StepsPage fallback={<LoadingComponent />} />} />
-				</Routes>
-			</Container>
-		</div>
-	)
+const App: React.FC<IApp> = ({ serverSideProps }) => {
+  console.log(isEmptyES([]), isEmpty([]))
+  return (
+    <div>
+      <StickyNavigation />
+      <Container>
+        <Routes>
+          <Route path='/' element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
+          <Route path='/ExpandingCards' element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
+          <Route
+            path='/ScrollAnimation'
+            element={<ScrollAnimationPage serverSideProps={serverSideProps} fallback={<LoadingComponent />} />}
+          />
+          <Route path='/RotatingNavigation' element={<RotatingNavigationPage fallback={<LoadingComponent />} />} />
+          <Route path='/BlurryLoading' element={<BlurryLoadingPage fallback={<LoadingComponent />} />} />
+          <Route path='/HiddenSearchWidget' element={<HiddenSearchWidgetPage fallback={<LoadingComponent />} />} />
+          <Route path='/StepsPage' element={<StepsPage fallback={<LoadingComponent />} />} />
+        </Routes>
+      </Container>
+    </div>
+  )
 }
 
 export default App
