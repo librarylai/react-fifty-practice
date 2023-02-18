@@ -19,6 +19,6 @@ module.exports = {
   ],
   webpack: {
     // loadable component 套件，讓打包時編譯出 loadable-stats.json file 之後給 Server-Side Rending 使用
-    plugins: [new LoadablePlugin(), new BundleAnalyzerPlugin()],
+    plugins: process.env.NODE_ENV === 'development' ? [new LoadablePlugin(), new BundleAnalyzerPlugin()] : [new LoadablePlugin()],
   },
 }

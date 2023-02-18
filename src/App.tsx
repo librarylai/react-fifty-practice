@@ -6,9 +6,6 @@ import loadable from '@loadable/component'
 import styled from 'styled-components'
 import { IServerSideProps } from '@/interface/GeneralInterface'
 
-import { isEmpty } from 'lodash'
-import { isEmpty as isEmptyES } from 'lodash-es'
-
 const Container = styled.div`
   position: relative;
   top: 110px;
@@ -50,12 +47,32 @@ function LoadingComponent() {
 interface IApp {
   serverSideProps?: Array<IServerSideProps | null>
 }
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-top: 50px;
+  > button {
+    margin-right: 20px;
+  }
+`
 const App: React.FC<IApp> = ({ serverSideProps }) => {
-  console.log(isEmptyES([]), isEmpty([]))
+  const dynamicImportLodash = () => {
+    import(/*webpackChunkName:'LodashChunk'*/ 'lodash').then((lodash) => {
+      console.log(lodash)
+      /* 拿到 lodash 瞜！ 開始做某些操作.......... */
+    })
+  }
   return (
     <div>
       <StickyNavigation />
       <Container>
+        <ButtonWrapper>
+          <button style={{ backgroundColor: 'lightblue' }} onClick={dynamicImportLodash}>
+            動態載入lodash 1
+          </button>
+          <button style={{ backgroundColor: 'orange' }} onClick={dynamicImportLodash}>
+            動態載入lodash 2
+          </button>
+        </ButtonWrapper>
         <Routes>
           <Route path='/' element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
           <Route path='/ExpandingCards' element={<ExpandingCardsPage fallback={<LoadingComponent />} />} />
