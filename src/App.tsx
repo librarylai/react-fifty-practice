@@ -5,6 +5,9 @@ import StickyNavigation from '@/components/stickyNaigation/StickyNavigation'
 import loadable from '@loadable/component'
 import styled from 'styled-components'
 import { IServerSideProps } from '@/interface/GeneralInterface'
+import { flatten } from 'lodash'
+
+console.log('flatten', flatten)
 
 const Container = styled.div`
   position: relative;
@@ -67,10 +70,10 @@ const ButtonWrapper = styled.div`
 `
 const App: React.FC<IApp> = ({ serverSideProps }) => {
   const dynamicImportLodash = () => {
-    import(/*webpackChunkName:'LodashChunk'*/ 'lodash').then((lodash) => {
-      console.log(lodash)
-      /* 拿到 lodash 瞜！ 開始做某些操作.......... */
-    })
+    // import(/*webpackChunkName:'LodashChunk'*/ 'lodash').then((lodash) => {
+    //   console.log(lodash)
+    //   /* 拿到 lodash 瞜！ 開始做某些操作.......... */
+    // })
   }
 
   const renderLoadableRouteComponents = () => {

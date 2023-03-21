@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
+import { flatten } from 'lodash'
+
+console.log('flatten', flatten)
 const Background = styled.div`
   background-image: linear-gradient(90deg, #7d5fff, #7158e2);
   display: flex;
@@ -59,7 +62,7 @@ function HiddenSearchWidgetPage(props: IHiddenSearchWidgetProps) {
       <HiddenSearchWidgetContainer>
         <SearchInput ref={InputRef} isOpen={isOpen} />
         <SearchButton onClick={handelToggleOpen} isOpen={isOpen}>
-          <FontAwesomeIcon icon={faSearch}/>
+          <FontAwesomeIcon icon={faSearch} />
         </SearchButton>
       </HiddenSearchWidgetContainer>
     </Background>

@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components'
 
 import React from 'react'
+import { flatten } from 'lodash'
 
+console.log('flatten', flatten)
 // -- styled component props types ----------------------------------------------------------------- //
 export interface StyledPanelProps {
   imgUrl?: String

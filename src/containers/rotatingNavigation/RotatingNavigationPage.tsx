@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
 import styled from 'styled-components'
+import { flatten } from 'lodash'
 
+console.log('flatten', flatten)
 interface StyledProps {
   currentIndex?: number
   isOpen?: boolean
@@ -10,8 +12,8 @@ interface StyledProps {
 const Background = styled.div`
   min-height: 100vh;
   background-color: #222;
-	position: 'relative';
-	box-sizing: border-box;
+  position: 'relative';
+  box-sizing: border-box;
 `
 const RotatingNavigationPageContainer = styled.div<StyledProps>`
   width: 100vw;
@@ -141,19 +143,23 @@ function RotatingNavigationPage(props: IRotatingNavigationPageProps) {
           <StyledTitle>Article Title</StyledTitle>
           <SmallText>library.lai</SmallText>
           <Content>
-            Pellentesque euismod sem faucibus velit mattis, vel dignissim ligula vehicula. Curabitur porta erat vitae mauris efficitur elementum. Fusce posuere nisi non aliquet varius. Nam tristique
-            scelerisque sem non aliquet. In condimentum egestas orci eget interdum. Aenean aliquet lorem sed neque feugiat, nec tincidunt nibh pharetra. Maecenas pharetra ante non viverra luctus. Nunc
-            massa eros, bibendum at magna sit amet, viverra molestie quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent ac libero consectetur, consectetur eros quis, rhoncus
-            augue. Donec vitae urna efficitur, efficitur erat in, pellentesque turpis. Vivamus auctor, neque et hendrerit aliquet, quam elit ultricies mauris, quis laoreet justo dolor in dolor.{' '}
+            Pellentesque euismod sem faucibus velit mattis, vel dignissim ligula vehicula. Curabitur porta erat vitae mauris efficitur
+            elementum. Fusce posuere nisi non aliquet varius. Nam tristique scelerisque sem non aliquet. In condimentum egestas orci eget
+            interdum. Aenean aliquet lorem sed neque feugiat, nec tincidunt nibh pharetra. Maecenas pharetra ante non viverra luctus. Nunc
+            massa eros, bibendum at magna sit amet, viverra molestie quam. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Praesent ac libero consectetur, consectetur eros quis, rhoncus augue. Donec vitae urna efficitur, efficitur erat in,
+            pellentesque turpis. Vivamus auctor, neque et hendrerit aliquet, quam elit ultricies mauris, quis laoreet justo dolor in dolor.{' '}
           </Content>
           <h3>Aaimal</h3>
           <Image src={'https://picsum.photos/id/1003/1200/1200'} />
           <Content>
-            Morbi malesuada bibendum dolor, eget auctor metus. Morbi dapibus diam ex, vitae bibendum enim luctus sed. Nullam odio elit, lacinia in accumsan interdum, fermentum sed lectus. Praesent
-            cursus, ligula sed semper facilisis, felis diam pellentesque turpis, a tincidunt tortor augue et nibh. Curabitur fermentum finibus luctus. Ut maximus iaculis lectus, a lacinia elit posuere
-            et. Proin vel nulla ipsum. Sed blandit dictum nunc at dignissim. Nullam vel ligula posuere, interdum justo non, eleifend tortor. Duis ac risus eget purus maximus varius et eu felis.
-            Praesent malesuada mauris id erat fermentum tincidunt. Phasellus eu dui ac nisl rutrum sodales. Nam sed nisl turpis. Ut vitae iaculis urna, at sagittis neque. Nullam condimentum elit et
-            purus ullamcorper, ac volutpat velit faucibus.
+            Morbi malesuada bibendum dolor, eget auctor metus. Morbi dapibus diam ex, vitae bibendum enim luctus sed. Nullam odio elit,
+            lacinia in accumsan interdum, fermentum sed lectus. Praesent cursus, ligula sed semper facilisis, felis diam pellentesque
+            turpis, a tincidunt tortor augue et nibh. Curabitur fermentum finibus luctus. Ut maximus iaculis lectus, a lacinia elit posuere
+            et. Proin vel nulla ipsum. Sed blandit dictum nunc at dignissim. Nullam vel ligula posuere, interdum justo non, eleifend tortor.
+            Duis ac risus eget purus maximus varius et eu felis. Praesent malesuada mauris id erat fermentum tincidunt. Phasellus eu dui ac
+            nisl rutrum sodales. Nam sed nisl turpis. Ut vitae iaculis urna, at sagittis neque. Nullam condimentum elit et purus
+            ullamcorper, ac volutpat velit faucibus.
           </Content>
         </ContentWrapper>
       </RotatingNavigationPageContainer>

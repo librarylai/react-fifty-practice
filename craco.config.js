@@ -34,4 +34,19 @@ module.exports = {
         ? [...plugins]
         : [...plugins, new CompressionPlugin(), process.env.ANALYZE ? new BundleAnalyzerPlugin() : null].filter(Boolean),
   },
+  babel: {
+    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+    plugins: [
+      [
+        'import',
+        {
+          libraryName: 'lodash',
+          libraryDirectory: '',
+          camel2DashComponentName: false,
+        },
+      ],
+      '@loadable/babel-plugin',
+      '@babel/plugin-transform-runtime',
+    ],
+  },
 }
