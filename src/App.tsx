@@ -35,6 +35,11 @@ const RotatingNavigationPage = React.lazy(
 const HiddenSearchWidgetPage = React.lazy(
   () => import(/*webpackChunkName:'HiddenSearchWidgetPage'*/ '@/containers/hiddenSearchWidget/HiddenSearchWidgetPage')
 )
+
+const BackgroundBox3DPage = React.lazy(
+  () => import(/*webpackChunkName:'BackgroundBox3DPage'*/ '@/containers/backgroundBox3d/BackgroundBox3DPage')
+)
+
 const StepsPage = loadable(() => import(/*webpackChunkName:'StepPage'*/ '@/containers/steps/StepsPage'))
 
 /* 使用 loadable component */
@@ -104,6 +109,7 @@ const App: React.FC<IApp> = ({ serverSideProps }) => {
           <Route path='/BlurryLoading' element={<BlurryLoadingPage />} />
           <Route path='/HiddenSearchWidget' element={<HiddenSearchWidgetPage />} />
           <Route path='/StepsPage' element={<StepsPage />} />
+          <Route path='/BackgroundBox3DPage' element={<BackgroundBox3DPage />} />
         </Routes>
       </Suspense>
     )

@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 
 import styled from 'styled-components'
 import useInterval from '@/hook/useInterval'
-import { flatten } from 'lodash'
 
-console.log('flatten', flatten)
 type styledProps = {
   percentage: number
 }

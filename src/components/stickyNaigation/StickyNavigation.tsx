@@ -14,8 +14,7 @@ const StickyNavigationContainer = styled.nav<StyledProps>`
   background-color: ${({ isActive }) => (isActive ? '#fff' : '#222')};
   transition: all 0.3s ease-in-out;
   box-shadow: ${({ isActive }) => (isActive ? '0 2px 10px rgba(0, 0, 0, 0.3)' : '')};
-	z-index: 999;
-	
+  z-index: 999;
 `
 const NavContainer = styled.nav<StyledProps>`
   display: flex;
@@ -51,7 +50,7 @@ export default function StickyNaigation(props: IStickyNavigationProps) {
   const [isActive, setIsActive] = useState(false)
   const navRef = useRef<HTMLElement>(null)
   const fixNav = () => {
-		if (!navRef.current) return
+    if (!navRef.current) return
     if (window.scrollY > navRef.current.offsetHeight + 150) {
       setIsActive(true)
     } else {
@@ -59,10 +58,10 @@ export default function StickyNaigation(props: IStickyNavigationProps) {
     }
   }
   useEffect(() => {
-		window.addEventListener('scroll', fixNav)
-		return ()=>{
-			window.removeEventListener('scroll', fixNav)
-		}
+    window.addEventListener('scroll', fixNav)
+    return () => {
+      window.removeEventListener('scroll', fixNav)
+    }
   }, [])
   return (
     <StickyNavigationContainer isActive={isActive} ref={navRef}>
@@ -97,6 +96,11 @@ export default function StickyNaigation(props: IStickyNavigationProps) {
           <li>
             <LinkStyled isActive={isActive} to='/StepsPage'>
               StepsPage
+            </LinkStyled>
+          </li>
+          <li>
+            <LinkStyled isActive={isActive} to='/BackgroundBox3DPage'>
+              BackgroundBox3DPage
             </LinkStyled>
           </li>
         </NavUl>
