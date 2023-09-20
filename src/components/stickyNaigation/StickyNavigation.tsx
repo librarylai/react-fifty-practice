@@ -103,6 +103,11 @@ export default function StickyNaigation(props: IStickyNavigationProps) {
               BackgroundBox3DPage
             </LinkStyled>
           </li>
+          <li>
+            <LinkStyled isActive={isActive} to='/NotesPage'>
+              NotesPage
+            </LinkStyled>
+          </li>
         </NavUl>
       </NavContainer>
     </StickyNavigationContainer>
